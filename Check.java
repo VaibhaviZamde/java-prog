@@ -5,7 +5,7 @@ class Check
 	{
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.print("ENter any integer");
+		System.out.print("Enter any integer");
 		int x = scan.nextInt();
 		
 		if(x%2==0)
