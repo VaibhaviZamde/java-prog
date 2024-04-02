@@ -3,7 +3,7 @@ class SY2023bit503 {
         String[] arr;
 
         int i = 0;
-        while (i < 5) {
+        while (i < 10) {
             arr = generateArray();
             long startTime = System.nanoTime();
             System.out.println(startTime);
@@ -89,11 +89,11 @@ class SY2023bit503 {
         return randomNum;
     }
 
-    public static char generateRandomChar() {
+    /*public static char generateRandomChar() {
         int randomChar = generateUpto34();
         char randomLowerChar = (char) ('a' + randomChar % 26);
         return randomLowerChar;
-    }
+    }*/
 
     public static String generateThreeChar() {
         String[] validStrings = {"bit", "bcs", "bch", "bme"}; // Valid strings
