@@ -3,8 +3,9 @@ import java.util.*;
 class Librarian {
     public String[] bookNames = new String[500];
     public String[] authorNames = new String[500];
-    public int numBook = 20;
+    public int numBook = 0;
 
+	//Add Book
     public int addBook(String[] bookNames, String[] authorNames) 
     {
         Scanner scan = new Scanner(System.in);
@@ -29,6 +30,7 @@ class Librarian {
         }
     }
     
+    	//ISSUE BOOK
        public boolean issueBook(String BookName, String AuthorName, String RegNo) 
        {
 	    if (isBookAvail(numBook)) 
@@ -49,6 +51,73 @@ class Librarian {
 	{
 	    return numBook != 0;
 	}
+	
+	//AVAILABLE BOOK
+	public String[] availableBooks() 
+	{
+		String[] available = new String[numBook];
+		for (int i = 0; i < numBook; i++) 
+		{
+		    available[i] = bookNames[i] + " by " + authorNames[i];
+		}
+		return available;
+	}
+	
+	//REMOVE BOOK
+	public boolean removeBook(String bookName) 
+	    {
+		for (int i = 0; i < numBook; i++) 
+		{
+		    if (bookNames[i].equalsIgnoreCase(bookName)) 
+		    {
+		        // Shift elements to the left to remove the book
+		        for (int j = i; j < numBook - 1; j++) 
+		        {
+		            bookNames[j] = bookNames[j + 1];
+		            authorNames[j] = authorNames[j + 1];
+		        }
+		        bookNames[numBook - 1] = null; // Set the last element to null
+		        authorNames[numBook - 1] = null; // Set the last element to null
+		        numBook--;
+		        System.out.println("Book removed successfully.");
+		        return true;
+		    }
+		}
+		System.out.println("Book not found.");
+		return false;
+	    }
+	    
+		    // Renew Book
+	    public boolean renewBook(String bookName) 
+	    {
+		for (int i = 0; i < numBook; i++) 
+		{
+		    if (bookNames[i].equalsIgnoreCase(bookName)) 
+		    {
+		        numBook++; // Increase the availability of the book
+		        System.out.println("Book renewed successfully.");
+		        return true;
+		    }
+		}
+		System.out.println("Book not found or cannot be renewed.");
+		return false;
+	    }
+	    
+		    // Borrow Book
+	    public boolean borrowBook(String bookName, String studentName) 
+	    {
+		for (int i = 0; i < numBook; i++) 
+		{
+		    if (bookNames[i].equalsIgnoreCase(bookName)) 
+		    {
+		        // Assuming borrowed books are not removed from the library's records
+		        System.out.println("Book '" + bookName + "' borrowed by " + studentName);
+		        return true;
+		    }
+		}
+		System.out.println("Book not found or cannot be borrowed.");
+		return false;
+	    }
 }
 
 class LibraryManagement extends Librarian 
@@ -58,16 +127,21 @@ class LibraryManagement extends Librarian
 
     public static void main(String args[]) {
         Scanner scan = new Scanner(System.in);
+        boolean exit = false;
 
+      do 
+      {
         System.out.println("* Library Management System *");
         System.out.println("1. Librarian Login");
         System.out.println("2. Student Login");
+        System.out.println("3. Exit");
 
         System.out.print("Enter your choice  : ");
         choice = scan.nextInt();
 
-        do {
-            switch (choice) {
+        
+            switch (choice) 
+            {
                 case 1:
                     librarianMenu(scan);
                     break;
@@ -75,11 +149,16 @@ class LibraryManagement extends Librarian
                 case 2:
                     studentMenu(scan);
                     break;
+                   
+                case 3:
+                    exit = true;
+                    System.out.println("Exiting...");
+                    break;
 
                 default:
                     System.out.println("Invalid Input..");
             }
-        } while (choice != 3);
+        }  while (!exit);
 
         scan.close();
     }
@@ -121,15 +200,42 @@ class LibraryManagement extends Librarian
                     break;
 
                 case 3:
-                    // Logic for displaying available books
+                    String[] available = librarian.availableBooks();
+                    if (available.length == 0) 
+                    {
+                        System.out.println("No books available.");
+                    } 
+                    else 
+                    {
+                        System.out.println("Available Books:");
+                        for (String book : available) 
+                        {
+                            System.out.println(book);
+                        }
+                    }
                     break;
 
                 case 4:
                     // Logic for removing books
+                    
+                    System.out.println("Enter the name of the book to remove:");
+                    String bookToRemove = scan.next();
+                    librarian.removeBook(bookToRemove);
+                    
                     break;
 
                 case 5:
                     // Logic for renewing book
+                    System.out.println("Enter the name of the book to renew:");
+                    String bookToRenew = scan.next();
+                    if (librarian.renewBook(bookToRenew)) 
+                    {
+                        System.out.println("Book renewed successfully.");
+                    } else 
+                    {
+                        System.out.println("Book not found or cannot be renewed.");
+                    }
+                    
                     break;
 
                 case 6:
@@ -158,6 +264,11 @@ class LibraryManagement extends Librarian
             switch (op) {
                 case 1:
                     // Logic for borrowing book
+                    System.out.println("Enter the book name: ");
+                    String bookToBorrow = scan.next();
+                    System.out.println("Enter your name: ");
+                    String studentName = scan.next();
+                    librarian.borrowBook(bookToBorrow, studentName);
                     break;
 
                 case 2:
@@ -166,6 +277,20 @@ class LibraryManagement extends Librarian
 
                 case 3:
                     // Logic for displaying available books
+                     String[] available = librarian.availableBooks();
+                    if (available.length == 0) 
+                    {
+                        System.out.println("No books available.");
+                    } 
+                    else 
+                    {
+                        System.out.println("Available Books:");
+                        for (String book : available) 
+                        {
+                            System.out.println(book);
+                        }
+                    }
+                    
                     break;
 
                 case 4:
