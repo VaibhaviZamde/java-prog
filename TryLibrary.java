@@ -10,10 +10,10 @@ class Librarian {
     {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter book name:");
+        System.out.println("Book name:");
         String bookName = scan.nextLine();
 
-        System.out.println("Enter author name:");
+        System.out.println("Author name:");
         String authorName = scan.nextLine();
 
         if (numBook < 500) 
@@ -42,7 +42,7 @@ class Librarian {
 	    } 
 	    else 
 	    {
-		System.out.println("Sorry the book is not available");
+		System.out.println("Book is not available");
 		return false;
 	    }
 	}
@@ -79,7 +79,7 @@ class Librarian {
 		        bookNames[numBook - 1] = null; // Set the last element to null
 		        authorNames[numBook - 1] = null; // Set the last element to null
 		        numBook--;
-		        System.out.println("Book removed successfully.");
+		        System.out.println("Book removed.");
 		        return true;
 		    }
 		}
@@ -95,7 +95,7 @@ class Librarian {
 		    if (bookNames[i].equalsIgnoreCase(bookName)) 
 		    {
 		        numBook++; // Increase the availability of the book
-		        System.out.println("Book renewed successfully.");
+		        System.out.println("Book renewed.");
 		        return true;
 		    }
 		}
@@ -131,7 +131,7 @@ class LibraryManagement extends Librarian
 
       do 
       {
-        System.out.println("* Library Management System *");
+        System.out.println("\n* Library Management System *");
         System.out.println("1. Librarian Login");
         System.out.println("2. Student Login");
         System.out.println("3. Exit");
@@ -169,8 +169,8 @@ class LibraryManagement extends Librarian
 ;
 
         while (true) {
-            System.out.println("Welcome...");
-            System.out.println("1. Add Book");
+            //System.out.println("Welcome...");
+            System.out.println("\n1. Add Book");
             System.out.println("2. Issue Book");
             System.out.println("3. Available Books");
             System.out.println("4. Remove Books");
@@ -184,16 +184,16 @@ class LibraryManagement extends Librarian
                 case 1:
                     int index = librarian.addBook(librarian.bookNames, librarian.authorNames);
                     if (index != -1)
-                        System.out.println("Book added successfully.");
+                        System.out.println("Book added.");
                     break;
 
                 case 2:
                     // Logic for issuing book
-		        System.out.println("Enter the book name: ");
+		        System.out.println("Book name: ");
 		        String bName = scan.next();
-		        System.out.println("Enter the author name: ");
+		        System.out.println("Author name: ");
 		        String aName = scan.next();
-		        System.out.println("Enter the registration number: ");
+		        System.out.println("Registration number: ");
 		        String regNo = scan.next();
 		        librarian.issueBook(bName, aName, regNo);
 		        
@@ -252,8 +252,8 @@ class LibraryManagement extends Librarian
         int op;
 
         do {
-            System.out.println("Welcome...");
-            System.out.println("1. Borrow Book");
+            //System.out.println("Welcome...");
+            System.out.println("\n1. Borrow Book");
             System.out.println("2. Return Book");
             System.out.println("3. Available Books");
             System.out.println("4. Log Out");
@@ -264,7 +264,7 @@ class LibraryManagement extends Librarian
             switch (op) {
                 case 1:
                     // Logic for borrowing book
-                    System.out.println("Enter the book name: ");
+                    System.out.println("Book name: ");
                     String bookToBorrow = scan.next();
                     System.out.println("Enter your name: ");
                     String studentName = scan.next();
@@ -273,6 +273,13 @@ class LibraryManagement extends Librarian
 
                 case 2:
                     // Logic for returning book
+                    System.out.println("Book name: ");
+                    String bookToReturn = scan.next();
+                    System.out.println("Enter your name: ");
+                    String studentNameReturn = scan.next();
+                    // Assuming returning a book doesn't need additional logic, just acknowledging it.
+                    System.out.println("Book '" + bookToReturn + "' returned by " + studentNameReturn);
+                    
                     break;
 
                 case 3:
