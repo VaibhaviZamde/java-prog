@@ -1,9 +1,12 @@
 class SY2023bit503 {
-    public static void main(String[] args) {
-        int valCount1,valCount2;
+    public static void main(String[] args) 
+    {
+        int valCount1,valCount2,valCount3;
 	String[] arr;
 	long[] timeDiffs1 = new long[10];
-	long[] timeDiffs2 = new long[10]; 
+	long[] timeDiffs2 = new long[10];
+	long[] timeDiffs3 = new long[10];  
+	
 	
 	
         int i = 0;
@@ -33,20 +36,33 @@ class SY2023bit503 {
             long timeDiff2 = endTime2 - startTime2;
             timeDiffs2[i] = timeDiff2;
             
+            
+            //approch3
+            valCount3 = approch3(arr);
+            long startTime3 = System.nanoTime();
+            valCount3 = approch3(arr);
+            long endTime3 = System.nanoTime();
+            long timeDiff3 = endTime3 - startTime3;
+            timeDiffs3[i] = timeDiff3;
+            
             i++;
         }
         
         
 	double average1 = calAverage(timeDiffs1);
 	double average2 = calAverage(timeDiffs2);
+	double average3 = calAverage(timeDiffs3);
+	
 	
 	System.out.println(average1);
 	System.out.println(average2);
+	System.out.println(average3);
+	
     
     
     
         arr = generateArray();
-        int validCount1 = 0 , validCount2 =0;
+        int validCount1 = 0 , validCount2 =0,validCount3 = 0;
         for (String registration : arr) {
             if (isApproach1(registration)) 
             {
@@ -57,9 +73,15 @@ class SY2023bit503 {
             {
             	validCount2++;
             }
+            
+            if(isApproach3(registration))
+            {
+            	validCount3++;
+            }
         }
         System.out.println(validCount1);
         System.out.println(validCount2);
+        System.out.println(validCount3);
     }
     
     public static double calAverage(long[] array) {
@@ -172,6 +194,7 @@ class SY2023bit503 {
         return false;
     }
     
+    
     public static boolean isApproach2(String registration) 
     {
 	    if (registration != null && registration.length() >= 10) {
@@ -191,6 +214,27 @@ class SY2023bit503 {
 	    return false;
     }
     
+	public static boolean isApproach3(String registration) 
+	{
+	    if (registration != null && registration.length() >= 10) 
+	    {
+		// Extract the last three digits of the registration number
+		String lastThreeDigitsStr = registration.substring(7);
+		int lastThreeDigits;
+		try 
+		{
+		    lastThreeDigits = Integer.parseInt(lastThreeDigitsStr);
+		} catch (NumberFormatException e) {
+		    return false; // If last three digits are not valid integers
+		}
+
+		// Check if the last three digits are less than 50
+		return lastThreeDigits < 50;
+	    }
+	    
+	    return false;
+}
+	
 	public static int approch1(String[] arr) {
 	    int countValid = 0;
 	    for (String registration : arr) {
@@ -200,11 +244,27 @@ class SY2023bit503 {
 	    }
 	    return countValid;
 	}
-
-	public static int approch2(String[] arr) {
+	
+	public static int approch2(String[] arr) 
+	{
 	    int countValid = 0;
-	    for (String registration : arr) {
-		if (isApproach2(registration)) {
+	    for (String registration : arr) 
+	    {
+		if (isApproach2(registration)) 
+		{
+		    countValid++;
+		}
+	    }
+	    return countValid;
+	}
+	
+	public static int approch3(String[] arr) 
+	{
+	    int countValid = 0;
+	    for (String registration : arr) 
+	    {
+		if (isApproach3(registration)) 
+		{
 		    countValid++;
 		}
 	    }
