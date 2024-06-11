@@ -63,11 +63,12 @@ class GUIEX12 extends JFrame implements ActionListener
 			String file_extensions[] = {"java" , "c" ,"txt", "cpp" ,"odt"};
 			
 			FileNameExtensionFilter filter;
+			int result;
 			
 			for(int i=0; i<file_types.length;i++)
 			{
 				filter = new FileNameExtensionFilter(file_types[i],file_extensions[i]);
-				fc.setFilter(filter);
+				fc.setFileFilter(filter);
 			}
 			
 			switch(cmd)
@@ -76,14 +77,14 @@ class GUIEX12 extends JFrame implements ActionListener
 				
 				case "Open":
 					
-					int result = fc.showOpenDialog(this);
+					result = fc.showOpenDialog(this);
 					if(result == JFileChooser.APPROVE_OPTION)
 					{
-						File f = new fc.getSelectedFile();
+						File f = fc.getSelectedFile();
 						FileInputStream fin = new FileInputStream(f);
 						
 						int FileSize = fin.available();
-						byte file_date[] = new byte[file_size];
+						byte file_data[] = new byte[FileSize];
 						fin.read(file_data);
 						fin.close();
 						String data = new String(file_data);
@@ -92,7 +93,7 @@ class GUIEX12 extends JFrame implements ActionListener
 					break;
 				
 				case "Save":
-					int result = fc.showSaveDialog(this);
+					result = fc.showSaveDialog(this);
 					if(result == JFileChooser.APPROVE_OPTION)
 					{
 						String data = ta.getText();
