@@ -26,11 +26,11 @@ class GUIEX15 extends JFrame implements ActionListener,Runnable,ChangeListener
 		pb.addChangeListener(this);
 		rn = new Random();
 		
-		setLayout(new GridLayout(2,1));
+		setLayout(new BorderLayout());
 		
-		add(btn);
-		add(cn);
-		add(pnl);
+		add(btn, BorderLayout.NORTH);
+		add(cn, BorderLayout.CENTER);
+		add(pnl, BorderLayout.SOUTH);
 		pnl.setLayout(new GridLayout(2,1));
 		pnl.add(lbl);
 		pnl.add(pb);
@@ -44,7 +44,7 @@ class GUIEX15 extends JFrame implements ActionListener,Runnable,ChangeListener
 	{
 		try
 		{
-			Graphics g = new Graphics();
+			Graphics g = cn.getGraphics();
 			for(int i=1;i<=100;i++)
 			{
 				int x = rn.nextInt(400);
@@ -57,7 +57,7 @@ class GUIEX15 extends JFrame implements ActionListener,Runnable,ChangeListener
 				Color clr = new Color(red,green,blue);
 				
 				g.setColor(clr);
-				g.fillOval(x,y,z,z);
+				g.fillOval(x, y, z, z);
 				pb.setValue(i);
 				Thread.sleep(100);
 			}
@@ -76,7 +76,7 @@ class GUIEX15 extends JFrame implements ActionListener,Runnable,ChangeListener
 	
 	public void stateChanged(ChangeEvent ce)
 	{
-		double p = pb.getPercent_Complete()*100;
+		double p = pb.getPercentComplete()*100;
 		lbl.setText(((int)p) + "%");
 	}
 
