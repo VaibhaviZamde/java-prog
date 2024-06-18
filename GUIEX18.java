@@ -60,6 +60,27 @@ class GUIEX18 extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent ae)
 	{
+		String cmd = ae.getActionCommand();
+		
+		switch(cmd)
+		{
+			case "Sum":
+				double x = Double.parseDouble(t1.getText());
+				double y = Double.parseDouble(t2.getText());
+				double res = x+y;
+				t3.setText(res+"");
+				break;
+			
+			case "Factorial":
+				int n = Integer.parseInt(t4.getText());
+				int f = 1;
+				for(int i=1;i<=n;i++)
+				{
+					f = f*i;
+				}
+				t5.setText(f+"");
+				break;
+		}
 		
 	}
 
