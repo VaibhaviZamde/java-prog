@@ -2,12 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
+import java.util.*;
 
-class GUIEX20 extends JFrame implements ActionListener
+class GUIEX20 extends JFrame implements ActionListener,ListSelectionListener
 {
-	private JList <String> lst;
+	private JList<String> lst;
 	private JTextField t1,t2,t3;
-	private Vector <String> vlist;
+	private Vector<String> vlist;
 	private JLabel lbl;
 	
 	public GUIEX20()
@@ -27,11 +28,11 @@ class GUIEX20 extends JFrame implements ActionListener
 		p2.setLayout(null);
 		
 		JLabel l1 = new JLabel("Enter Student Name");
-		l1.setBound(10,10,150,30);
+		l1.setBounds(10,10,150,30);
 		p2.add(l1);
 		
 		t1 = new JTextField(10);
-		t1.setBound(165,10,150,30);
+		t1.setBounds(165,10,150,30);
 		p2.add(t1);
 		
 		JButton b = new JButton("ADD");
@@ -45,26 +46,26 @@ class GUIEX20 extends JFrame implements ActionListener
 		b.addActionListener(this);
 		
 		JLabel l2 = new JLabel("Selected Index");
-		l1.setBound(10,80,150,30);
+		l1.setBounds(10,80,150,30);
 		p2.add(l2);
 		
 		t2 = new JTextField(10);
-		t2.setBound(165,80,150,30);
+		t2.setBounds(165,80,150,30);
 		p2.add(t2);
 		t2.setEditable(false);
 		
 		JLabel l3 = new JLabel("Selected Item");
-		l1.setBound(10,1150,150,30);
+		l1.setBounds(10,1150,150,30);
 		p2.add(l3);
 		
 		t3 = new JTextField(10);
-		t3.setBound(165,115,150,30);
+		t3.setBounds(165,115,150,30);
 		p2.add(t3);
 		t2.setEditable(false);
 		
 		lbl = new JLabel();
-		lb.setBounds(10,150,300,50);
-		p2.add(lb);
+		lbl.setBounds(10,150,300,50);
+		p2.add(lbl);
 		
 		JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,p1,p2);
 		
@@ -79,12 +80,63 @@ class GUIEX20 extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent ae)
 	{
+		lbl.setText("");
+		String stud_name = t1.getText().trim().toUpperCase();
+		t1.setText("");
 		
+		if(stud_name.length() >0)
+		{
+			String cmd = ae.getActionCommand().toUpperCase();
+			
+			switch(cmd)
+			{
+				case "ADD":
+					if(vlist.contains(stud_name) == false)
+					{
+						vlist.add(stud_name);
+						lst.setListData(vlist);
+						lbl.setForeground(Color.GREEN);
+						
+						lbl.setText(stud_name+" ");
+					}
+					else
+					{
+						lbl.setForeground(Color.RED);
+						lbl.setText(stud_name+" is already added");
+					}
+					break;
+					
+				case "REMOVE":
+					int Index = vlist.indexOf(stud_name);
+					
+					if(Index != -1)
+					{
+						vlist.remove(Index);
+						lst.setListData(vlist);
+						lbl.setForeground(Color.GREEN);
+						lbl.setText(stud_name+" is removed");
+					}
+					else
+					{
+						lbl.setForeground(Color.RED);
+						lbl.setText(stud_name+" is not found");
+					}
+					break;
+			}
+		}
+		else
+		{
+			lbl.setForeground(Color.RED);
+			lbl.setText("Invalid Student Name");
+		}
 	}
 	
 	public void valueChanged(ListSelectionEvent e)
 	{
-	
+		int i = lst.getSelectedIndex();
+		String n = (String) lst.getSelectedValue();
+		t2.setText(i+" ");
+		t3.setText(n);
 	}
 
 	public static void main(String args[])
